@@ -1,0 +1,28 @@
+{
+  "name": "secure-container",
+  "private": true,
+  "version": "0.0.5",
+  "scripts": {
+    "lint": "run-s root:lint web:lint cdk:lint",
+    "cdk:lint": "npm -w packages/cdk run lint",
+    "root:lint": "npx prettier --write .",
+    "init": "curl -sSL https://install.python-poetry.org | python3 - && npm install && npm -w packages/cdk run init",
+    "ecr:build": "npm -w packages/backend run docker:build",
+    "ecr:tag": "npm -w packages/backend run docker:tag",
+    "ecr:login": "npm -w packages/backend run ecr:login",
+    "ecr:push": "npm -w packages/backend run ecr:push",
+    "cdk:deploy": "npm -w packages/cdk run cdk deploy -- --all",
+    "cdk:destroy": "npm -w packages/cdk run cdk destroy"
+  },
+  "devDependencies": {
+    "@tailwindcss/forms": "^0.5.4",
+    "@types/node": "^20.11.19",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^3.0.0",
+    "prettier-plugin-tailwindcss": "^0.4.1",
+    "tailwind-scrollbar": "^3.0.5"
+  },
+  "workspaces": [
+    "packages/*"
+  ]
+}

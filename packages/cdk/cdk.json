@@ -1,0 +1,28 @@
+{
+	"app": "npx ts-node --prefer-ts-exts bin/streamlit-aws-https.ts",
+	"watch": {
+		"include": [
+			"**"
+		],
+		"exclude": [
+			"README.md",
+			"cdk*.json",
+			"**/*.d.ts",
+			"**/*.js",
+			"tsconfig.json",
+			"package*.json",
+			"yarn.lock",
+			"node_modules",
+			"test"
+		]
+	},
+	"context": {
+		"ecrRepogitoryName": "streamlit-app",
+		"containerPort": 8501,
+		"containerHealthCheckPath": "/healthz",
+		"useCognitoAuth": false,
+		"allowedSignUpEmailDomains": [
+			"classmethod.jp"
+		]
+	}
+}

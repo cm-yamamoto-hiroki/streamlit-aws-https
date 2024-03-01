@@ -1,0 +1,11 @@
+{
+  "name": "backend",
+  "private": true,
+  "scripts": {
+    "poetry:renew_base": "poetry export -f requirements.txt --output tmp/requirements_base.txt", 
+    "docker:build": "poetry export -f requirements.txt --output tmp/requirements.txt --without-hashes && docker build . -t streamlit-app",
+    "docker:tag": "ACCOUNT_ID=$(aws sts get-caller-identity --query \"Account\" --output text) && REGION=$(aws configure get region) && docker tag streamlit-app:latest ${ACCOUNT_ID}.dkr.ecr.${REGION}.amazonaws.com/streamlit-app:latest",
+    "ecr:login": "ACCOUNT_ID=$(aws sts get-caller-identity --query \"Account\" --output text) && REGION=$(aws configure get region) && aws ecr get-login-password --region ${REGION} | docker login --username AWS --password-stdin ${ACCOUNT_ID}.dkr.ecr.${REGION}.amazonaws.com",
+    "ecr:push": "ACCOUNT_ID=$(aws sts get-caller-identity --query \"Account\" --output text) && REGION=$(aws configure get region) && docker push ${ACCOUNT_ID}.dkr.ecr.${REGION}.amazonaws.com/streamlit-app:latest"
+  }
+}

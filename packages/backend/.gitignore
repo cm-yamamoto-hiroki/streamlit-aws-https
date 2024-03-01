@@ -1,0 +1,2 @@
+tmp/*
+!tmp/requirements_base.txt
